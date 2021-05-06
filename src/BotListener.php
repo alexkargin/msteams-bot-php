@@ -50,6 +50,7 @@ class BotListener extends Bot
     {
         if ($this->context->getMessageType() === 'conversationUpdate'
             && $this->context->getConversationType() === 'personal'
+            && !empty($this->context->getData()['membersAdded'])
             && is_array($this->context->getData()['membersAdded'])
         ) {
             $this->runCallback($func);
