@@ -4,6 +4,13 @@ namespace TeamsBot;
 
 use TeamsBot\Interfaces\AttachmentInterface;
 
+/**
+ * Basic Attachment
+ *
+ *
+ * @author Alexey Kargin <alexka@live.ru>
+ * @package TeamsBot
+ */
 class Attachment implements AttachmentInterface
 {
     /**

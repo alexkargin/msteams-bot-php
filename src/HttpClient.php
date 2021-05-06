@@ -7,6 +7,12 @@ use GuzzleHttp\Exception\GuzzleException;
 use JsonException;
 use TeamsBot\Exception\TeamsBotException;
 
+/**
+ * Guzzle client for sending requests
+ *
+ * @author Alexey Kargin <alexka@live.ru>
+ * @package TeamsBot
+ */
 class HttpClient
 {
     private static ?Client $client;

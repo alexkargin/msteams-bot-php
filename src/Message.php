@@ -6,7 +6,11 @@ use TeamsBot\Exception\TeamsBotMessageException;
 use TeamsBot\Interfaces\AttachmentInterface;
 
 /**
- * https://docs.microsoft.com/ru-ru/azure/bot-service/rest-api/bot-framework-rest-connector-api-reference?view=azure-bot-service-4.0#activity-object
+ * Activity object
+ * https://docs.microsoft.com/en-us/azure/bot-service/rest-api/bot-framework-rest-connector-api-reference?view=azure-bot-service-4.0#activity-object
+ *
+ * @author Alexey Kargin <alexka@live.ru>
+ * @package TeamsBot
  */
 class Message
 {
@@ -15,7 +19,7 @@ class Message
     public const LOCALE_RU_RU = 'ru-RU';
 
     /**
-     * @var array
+     * @var array Array of Attachment objects
      */
     private array $attachments = [];
     /**
@@ -28,7 +32,10 @@ class Message
     private Context $context;
 
     /**
-     * Message constructor.
+     * Activity constructor.
+     * The constructor creates from Context the underlying data array to send.
+     * You can pass the Context from the incoming request or create a new one.
+     *
      * @param Context $request
      */
     public function __construct(Context $request)
@@ -55,6 +62,8 @@ class Message
     }
 
     /**
+     * Set text field
+     *
      * @param string $text
      */
     public function setText(string $text): void
@@ -63,6 +72,8 @@ class Message
     }
 
     /**
+     * Get Activity data array with Attachments
+     *
      * @return array
      */
     public function getData(): array
@@ -78,6 +89,8 @@ class Message
     }
 
     /**
+     * Add a new Attachment to Activity
+     *
      * @param AttachmentInterface $attachment
      */
     public function addAttachment(AttachmentInterface $attachment): void
@@ -86,6 +99,8 @@ class Message
     }
 
     /**
+     * Get URL for POST Activity
+     *
      * @return string
      */
     public function getPostUrl(): string
@@ -99,6 +114,8 @@ class Message
     }
 
     /**
+     * Get URL for UPDATE Activity
+     *
      * @param string|null $activity_id
      * @return string
      * @throws TeamsBotMessageException

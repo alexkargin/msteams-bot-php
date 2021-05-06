@@ -7,6 +7,12 @@ use GuzzleHttp\Exception\GuzzleException;
 use JsonException;
 use TeamsBot\Exception\TeamsBotTokenException;
 
+/**
+ * Token for sending message to user
+ *
+ * @author Alexey Kargin <alexka@live.ru>
+ * @package TeamsBot
+ */
 class Token
 {
     private const URL = 'https://login.microsoftonline.com/botframework.com/oauth2/v2.0/token';
@@ -72,6 +78,9 @@ class Token
     }
 
     /**
+     * The method returns a token for calling API
+     * If not set, it requests a token from botframework
+     *
      * @return string
      * @throws TeamsBotTokenException
      */
@@ -87,6 +96,8 @@ class Token
     }
 
     /**
+     * Set token
+     *
      * @param string $token
      */
     public function set(string $token): void
@@ -95,6 +106,8 @@ class Token
     }
 
     /**
+     * If the token was received from botframework,
+     * contains the timestamp of the expiration date of the token
      */
     public function getExpiresIn(): ?int
     {

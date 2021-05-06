@@ -6,6 +6,12 @@ use TeamsBot\Exception\TeamsBotException;
 use TeamsBot\Exception\TeamsBotTokenException;
 use TeamsBot\Exception\TeamsBotMessageException;
 
+/**
+ * Main bot class.
+ *
+ * @author Alexey Kargin <alexka@live.ru>
+ * @package TeamsBot
+ */
 class Bot
 {
     /**
@@ -32,10 +38,10 @@ class Bot
 
     /**
      * Bot constructor.
+     * By default, the context is automatically created from the php://input
      *
      * @param string $bot_id
      * @param string $bot_password
-     *
      * @param Context|null $context
      * @throws TeamsBotException
      * @throws TeamsBotTokenException
@@ -57,6 +63,8 @@ class Bot
 
 
     /**
+     * Method to run the callback function
+     *
      * @param callable $func
      */
     protected function runCallback(callable $func): void
@@ -66,6 +74,8 @@ class Bot
 
 
     /**
+     * Method for creating an Activity object from the current bot Context
+     *
      * @return Message
      */
     public function createMessage(): Message
@@ -75,6 +85,8 @@ class Bot
 
 
     /**
+     * Send a new Activity
+     *
      * @param Message $message
      * @return array
      * @throws TeamsBotException
@@ -93,6 +105,11 @@ class Bot
 
 
     /**
+     * Updating an existing Activity
+     * If activity_id is not specified, the Activity id for updating is taken from the Activity context
+     * This is only possible in card actions (parameter replyToId)
+     * https://docs.microsoft.com/en-us/microsoftteams/platform/task-modules-and-cards/cards/cards-actions
+     *
      * @param Message $message
      * @param string|null $activity_id
      * @return array
@@ -113,6 +130,8 @@ class Bot
 
 
     /**
+     * Simple method for text reply
+     *
      * @param string $text
      * @return array
      * @throws TeamsBotException

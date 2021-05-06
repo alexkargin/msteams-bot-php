@@ -5,14 +5,21 @@ namespace TeamsBot;
 use JsonException;
 use TeamsBot\Exception\TeamsBotException;
 
+/**
+ * Context is the request data from the application.
+ * Used to generate a response from a bot.
+ *
+ * @author Alexey Kargin <alexka@live.ru>
+ * @package TeamsBot
+ */
 class Context
 {
     /**
-     * @var array
+     * @var array Context data
      */
     private array $data = [];
     /**
-     * @var array
+     * @var array The minimum set of required fields to create a context
      */
     private array $requirement_fields = [
         'id' => '',
@@ -24,8 +31,9 @@ class Context
 
 
     /**
-     * Context constructor.
-     * @param string $payload
+     * Context object constructor.
+     *
+     * @param string $payload Context data in JSON
      * @throws TeamsBotException
      */
     public function __construct(string $payload)
@@ -44,6 +52,8 @@ class Context
 
 
     /**
+     * Method for checking required fields
+     *
      * @param array $expected
      * @param array $actual
      * @param string $history
@@ -64,6 +74,8 @@ class Context
     }
 
     /**
+     * Return array of Context data
+     *
      * @return array
      */
     public function getData(): array
