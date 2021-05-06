@@ -1,6 +1,5 @@
 <?php
 
-
 namespace TeamsBot;
 
 use TeamsBot\Exception\TeamsBotMessageException;
@@ -91,7 +90,12 @@ class Message
      */
     public function getPostUrl(): string
     {
-        return rtrim($this->context->getServiceUrl(), '/') . '/v3/conversations/' . $this->context->getConversationId() . '/activities/' . urlencode($this->context->getId());
+        return
+            rtrim($this->context->getServiceUrl(), '/') .
+            '/v3/conversations/' .
+            $this->context->getConversationId() .
+            '/activities/' .
+            urlencode($this->context->getId());
     }
 
     /**
@@ -107,6 +111,11 @@ class Message
         if (empty($activity_id)) {
             throw new TeamsBotMessageException('Cannot get parent activity id');
         }
-        return rtrim($this->context->getServiceUrl(), '/') . '/v3/conversations/' . $this->context->getConversationId() . '/activities/' . urlencode($activity_id);
+        return
+            rtrim($this->context->getServiceUrl(), '/') .
+            '/v3/conversations/' .
+            $this->context->getConversationId() .
+            '/activities/' .
+            urlencode($activity_id);
     }
 }

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace TeamsBot;
 
 use JsonException;
@@ -77,7 +76,7 @@ class Context
      *
      * @return string|null
      */
-    public function getText():?string
+    public function getText(): ?string
     {
         return $this->data['text'] ?? null;
     }

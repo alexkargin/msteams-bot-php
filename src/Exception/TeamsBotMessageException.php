@@ -1,6 +1,5 @@
 <?php
 
-
 namespace TeamsBot\Exception;
 
 use Exception;

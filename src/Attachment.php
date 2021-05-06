@@ -1,6 +1,5 @@
 <?php
 
-
 namespace TeamsBot;
 
 use TeamsBot\Interfaces\AttachmentInterface;

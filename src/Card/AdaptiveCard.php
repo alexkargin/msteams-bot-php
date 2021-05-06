@@ -1,6 +1,5 @@
 <?php
 
-
 namespace TeamsBot\Card;
 
 use TeamsBot\Interfaces\AttachmentInterface;

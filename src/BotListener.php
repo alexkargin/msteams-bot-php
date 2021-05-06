@@ -1,6 +1,5 @@
 <?php
 
-
 namespace TeamsBot;
 
 class BotListener extends Bot
