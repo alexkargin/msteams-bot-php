@@ -1,0 +1,44 @@
+{
+  "name": "alexkargin/msteams-bot-php",
+  "description": "PHP Wrapper for Microsoft Teams Bot API",
+  "license": "MIT",
+  "keywords": [
+    "php",
+    "teams",
+    "bot",
+    "bot api"
+  ],
+  "authors": [
+    {
+      "name": "Alexey Kargin",
+      "email": "alexka@live.ru"
+    }
+  ],
+  "require": {
+    "php": "^7.4",
+    "ext-curl": "*",
+    "ext-json": "*",
+    "psr/log": "^1.1",
+    "guzzlehttp/guzzle": "^7.0"
+  },
+  "require-dev": {
+    "roave/security-advisories": "dev-master",
+    "squizlabs/php_codesniffer": "3.*",
+    "phpunit/phpunit": "^9",
+    "phpstan/phpstan": "^0.12.85"
+  },
+  "autoload": {
+    "psr-4": {
+      "TeamsBot\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "TeamsBot\\": "src",
+      "TeamsBot\\Test\\": "tests"
+    }
+  },
+  "scripts": {
+    "test": "phpunit"
+  }
+}

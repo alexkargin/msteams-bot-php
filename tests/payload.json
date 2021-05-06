@@ -1,0 +1,40 @@
+{
+  "text": "tst",
+  "textFormat": "plain",
+  "type": "message",
+  "timestamp": "2021-04-29T21:03:41.7224212Z",
+  "localTimestamp": "2021-04-30T00:03:41.7224212+03:00",
+  "id": "1234567890",
+  "channelId": "msteams",
+  "serviceUrl": "https://smba.trafficmanager.net/emea/",
+  "from": {
+    "id": "29:test",
+    "name": "Test",
+    "aadObjectId": "b1780df3-1543-4377-96e2-30cc0c28c3d4"
+  },
+  "conversation": {
+    "conversationType": "personal",
+    "tenantId": "17788e48-0b1c-4b55-b8ae-97f15a24ae1e",
+    "id": "a:test"
+  },
+  "recipient": {
+    "id": "28:8d8b2331-6265-4603-b553-b298bb0089af",
+    "name": "Bot"
+  },
+  "entities": [
+    {
+      "locale": "ru-RU",
+      "country": "RU",
+      "platform": "Windows",
+      "timezone": "Europe/Moscow",
+      "type": "clientInfo"
+    }
+  ],
+  "channelData": {
+    "tenant": {
+      "id": "b9c2ba76-1fa8-4804-8bdc-343d09e01dc7"
+    }
+  },
+  "locale": "ru-RU",
+  "localTimezone": "Europe/Moscow"
+}
