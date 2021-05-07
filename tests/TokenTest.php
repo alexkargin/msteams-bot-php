@@ -69,8 +69,8 @@ class TokenTest extends TestCase
     public function testSet(): void
     {
         $token = new Token('test','test');
-        $token->set('test');
-        self::assertEquals('test', $token->get());
+        $token->set(['token' => 'test', 'expires_in' => time() + 1000]);
+        self::assertEquals('test', $token->get()['token']);
     }
 
     /**
@@ -79,8 +79,8 @@ class TokenTest extends TestCase
     public function testGetWhenTokenIsSet(): void
     {
         $token = new Token('test','test');
-        $token->set('test');
-        self::assertEquals('test', $token->get());
+        $token->set(['token' => 'test', 'expires_in' => time() + 1000]);
+        self::assertEquals('test', $token->get()['token']);
     }
 
 
@@ -94,7 +94,7 @@ class TokenTest extends TestCase
         self::$mock->append(new Response(200, [], json_encode(['token_type' => 'Bearer', 'access_token' => 'test token', 'expires_in' => 1234567890], JSON_THROW_ON_ERROR)));
 
         $token = new Token('test','test');
-        self::assertEquals('Bearer test token', $token->get()); // use mock
+        self::assertEquals('Bearer test token', $token->get()['token']); // use mock
     }
 
     /**
@@ -139,27 +139,4 @@ class TokenTest extends TestCase
         $token->get();
     }
 
-
-    /**
-     * @throws JsonException
-     * @throws TeamsBotTokenException
-     */
-    public function testGetExpiresIn(): void
-    {
-        self::$mock->reset();
-        self::$mock->append(new Response(200, [], json_encode(['token_type' => 'Bearer', 'access_token' => 'test token', 'expires_in' => 1234567890], JSON_THROW_ON_ERROR)));
-
-        $token = new Token('test','test');
-        $token->get();
-        self::assertNotNull($token->getExpiresIn()); // use mock
-    }
-
-
-    /**
-     */
-    public function testGetExpiresInWhenTokenIsNotSet(): void
-    {
-        $token = new Token('test','test');
-        self::assertNull($token->getExpiresIn());
-    }
 }

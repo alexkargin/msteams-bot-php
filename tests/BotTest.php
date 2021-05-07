@@ -86,7 +86,7 @@ class BotTest extends TestCase
     {
         self::$mock->reset();
         self::$mock->append(new Response(200, [], json_encode(['id' => '1234567890'], JSON_THROW_ON_ERROR)));
-        self::$bot->token->set('testToken');
+        self::$bot->token->set(['token' => 'testToken', 'expires_in' => time() + 1000]);
 
         self::assertSame(['id' => '1234567890'], self::$bot->reply('test'));
     }
@@ -100,7 +100,7 @@ class BotTest extends TestCase
     {
         self::$mock->reset();
         self::$mock->append(new Response(200, [], json_encode(['id' => '1234567890'], JSON_THROW_ON_ERROR)));
-        self::$bot->token->set('testToken');
+        self::$bot->token->set(['token' => 'testToken', 'expires_in' => time() + 1000]);
 
         self::assertSame(['id' => '1234567890'], self::$bot->postMessage(self::$bot->createMessage()));
     }
@@ -114,7 +114,7 @@ class BotTest extends TestCase
     {
         self::$mock->reset();
         self::$mock->append(new Response(200, [], substr(json_encode(['id' => '1234567890'], JSON_THROW_ON_ERROR), 0, 5)));
-        self::$bot->token->set('testToken');
+        self::$bot->token->set(['token' => 'testToken', 'expires_in' => time() + 1000]);
 
         $this->expectException(TeamsBotException::class);
         $this->expectExceptionMessage('Error while sending message');
@@ -130,7 +130,7 @@ class BotTest extends TestCase
     {
         self::$mock->reset();
         self::$mock->append(new Response(401, [], json_encode(['id' => '1234567890'], JSON_THROW_ON_ERROR), 0, 5));
-        self::$bot->token->set('testToken');
+        self::$bot->token->set(['token' => 'testToken', 'expires_in' => time() + 1000]);
 
         $this->expectException(TeamsBotException::class);
         $this->expectExceptionMessage('Error while sending message');
@@ -147,7 +147,7 @@ class BotTest extends TestCase
     {
         self::$mock->reset();
         self::$mock->append(new Response(200, [], json_encode(['id' => '1234567890'], JSON_THROW_ON_ERROR)));
-        self::$bot->token->set('testToken');
+        self::$bot->token->set(['token' => 'testToken', 'expires_in' => time() + 1000]);
 
         self::assertSame(['id' => '1234567890'], self::$bot->updateMessage(self::$bot->createMessage(), 'test_activity_id'));
     }
@@ -161,7 +161,7 @@ class BotTest extends TestCase
     {
         self::$mock->reset();
         self::$mock->append(new Response(200, [], substr(json_encode(['id' => '1234567890'], JSON_THROW_ON_ERROR), 0, 5)));
-        self::$bot->token->set('testToken');
+        self::$bot->token->set(['token' => 'testToken', 'expires_in' => time() + 1000]);
 
         $this->expectException(TeamsBotException::class);
         $this->expectExceptionMessage('Error while sending message');
@@ -177,7 +177,7 @@ class BotTest extends TestCase
     {
         self::$mock->reset();
         self::$mock->append(new Response(401, [], json_encode(['id' => '1234567890'], JSON_THROW_ON_ERROR), 0, 5));
-        self::$bot->token->set('testToken');
+        self::$bot->token->set(['token' => 'testToken', 'expires_in' => time() + 1000]);
 
         $this->expectException(TeamsBotException::class);
         $this->expectExceptionMessage('Error while sending message');

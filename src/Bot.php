@@ -97,7 +97,7 @@ class Bot
         $data = [
             'json' => $message->getData(),
             'headers' => [
-                'Authorization' => $this->token->get()
+                'Authorization' => $this->token->get()['token']
             ]
         ];
         return HttpClient::process('POST', $message->getPostUrl(), $data);
@@ -122,7 +122,7 @@ class Bot
         $data = [
             'json' => $message->getData(),
             'headers' => [
-                'Authorization' => $this->token->get()
+                'Authorization' => $this->token->get()['token']
             ]
         ];
         return HttpClient::process('PUT', $message->getUpdateUrl($activity_id), $data);

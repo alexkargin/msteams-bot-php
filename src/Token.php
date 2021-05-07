@@ -17,9 +17,9 @@ class Token
 {
     private const URL = 'https://login.microsoftonline.com/botframework.com/oauth2/v2.0/token';
     /**
-     * @var string|null
+     * @var array|null
      */
-    private ?string $token = null;
+    private ?array $token = null;
     /**
      * @var string
      */
@@ -28,10 +28,6 @@ class Token
      * @var string
      */
     private string $bot_password;
-    /**
-     * @var int|null
-     */
-    private ?int $expires_in = null;
 
     /**
      * Token constructor.
@@ -53,10 +49,10 @@ class Token
 
     /**
      * @param Client $client
-     * @return object
+     * @return array
      * @throws TeamsBotTokenException
      */
-    private function request(Client $client): object
+    private function request(Client $client): array
     {
         try {
             $response = $client->request('POST', self::URL, [
@@ -67,8 +63,12 @@ class Token
                     'scope' => 'https://api.botframework.com/.default'
                 ]
             ]);
-            $token_data = json_decode($response->getBody(), false, 512, JSON_THROW_ON_ERROR);
-            if (empty($token_data->token_type) || empty($token_data->access_token) || empty($token_data->expires_in)) {
+            $token_data = json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR);
+            if (
+                empty($token_data['token_type']) ||
+                empty($token_data['access_token']) ||
+                empty($token_data['expires_in'])
+            ) {
                 throw new TeamsBotTokenException('Undefined response property');
             }
             return $token_data;
@@ -79,18 +79,23 @@ class Token
 
     /**
      * The method returns a token for calling API
-     * If not set, it requests a token from botframework
+     * If not set or expired, it requests a token from botframework
      *
-     * @return string
+     * @return array
      * @throws TeamsBotTokenException
      */
-    public function get(): string
+    public function get(): array
     {
-        if (is_null($this->token)) {
+        if (
+            is_null($this->token) ||
+            (!empty($this->token['expires_in']) && (int)$this->token['expires_in'] < time())
+        ) {
             $time = time();
             $token_data = $this->request(HttpClient::getClient());
-            $this->token = $token_data->token_type . ' ' . $token_data->access_token;
-            $this->expires_in = $time + (int)$token_data->expires_in;
+            $this->token = [
+                'token' => $token_data['token_type'] . ' ' . $token_data['access_token'],
+                'expires_in' => $time + (int)$token_data['expires_in']
+            ];
         }
         return $this->token;
     }
@@ -98,19 +103,17 @@ class Token
     /**
      * Set token
      *
-     * @param string $token
+     * @param array $token
+     * @throws TeamsBotTokenException
      */
-    public function set(string $token): void
+    public function set(array $token): void
     {
-        $this->token = $token;
-    }
-
-    /**
-     * If the token was received from botframework,
-     * contains the timestamp of the expiration date of the token
-     */
-    public function getExpiresIn(): ?int
-    {
-        return $this->expires_in;
+        if (empty($token['token']) || empty($token['expires_in'])) {
+            throw new TeamsBotTokenException('Undefined response property');
+        }
+        $this->token = [
+            'token' => $token['token'],
+            'expires_in' => (int)$token['expires_in']
+        ];
     }
 }

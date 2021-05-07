@@ -62,7 +62,8 @@ class BotListener extends Bot
      */
     public function onStartPersonalChat(callable $func): bool
     {
-        if ($this->context->getMessageType() === 'conversationUpdate'
+        if (
+            $this->context->getMessageType() === 'conversationUpdate'
             && $this->context->getConversationType() === 'personal'
             && !empty($this->context->getData()['membersAdded'])
             && is_array($this->context->getData()['membersAdded'])
