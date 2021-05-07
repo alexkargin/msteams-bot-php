@@ -1,0 +1,19 @@
+language: php
+dist: trusty
+
+php:
+  - 7.4
+  - 8.0
+  - nightly
+
+matrix:
+  allow_failures:
+    - php: hhvm
+
+before_script:
+  - composer self-update
+  - composer install --prefer-source --no-interaction --dev
+
+script:
+  - phpunit
+  - php vendor/bin/phpcs --standard=PSR2 --encoding=utf-8 src/
