@@ -14,4 +14,4 @@ before_script:
 
 script:
   - phpunit
-  - php vendor/bin/phpcs --standard=PSR2 --encoding=utf-8 src/
+  - php vendor/bin/phpcs --standard=PSR12 --encoding=utf-8 src/
