@@ -1,4 +1,4 @@
-# PHP Teams Bot
+# PHP Teams Bot [![Build Status](https://travis-ci.com/alexkargin/msteams-bot-php.svg?branch=main)](https://travis-ci.com/github/alexkargin/msteams-bot-php)
 A simple php library for creating bots for Microsoft Teams
 
 ## Requirements
