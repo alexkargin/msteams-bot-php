@@ -1,4 +1,5 @@
 # PHP Teams Bot
+A simple php library for creating bots for Microsoft Teams
 
 ## Requirements
 
@@ -12,7 +13,7 @@
 Install using composer:
 
 ```bash
-composer require "alexkargin/msteams-bot-php"
+composer require alexkargin/msteams-bot-php
 ```
 ### Create a bot
 
@@ -81,4 +82,38 @@ try {
 } catch (TeamsBotTokenException $e) {
 
 }
+```
+
+## Important! Validating incoming requests
+The package does not contain ways to check the validity of incoming requests. 
+You can implement this check according to the [documentation](https://docs.microsoft.com/en-us/azure/bot-service/rest-api/bot-framework-rest-connector-authentication?view=azure-bot-service-4.0), or use a different check method. For example, add a secret value to the handler address and check it.
+
+## Token caching
+By default, each bot instance receives a new token for sending messages. To speed up sending messages, the token can be cached for N seconds. For example, using the package [Stash](https://github.com/tedious/Stash)
+
+Installing the package
+```bash
+composer require tedivm/stash
+```
+
+And use it
+```php
+    $bot = new TeamsBot\BotListener('bot_id', 'password');
+    // use filesystem driver
+    $pool = new Stash\Pool(new Stash\Driver\FileSystem([]));
+    $item = $pool->getItem('token');
+    $token = $item->get();
+    if($item->isMiss())
+    {
+        // get new token
+        $token = $bot->token->get();
+        // Cache expires $token['expires_in']
+        $expiration = new DateTime('@'.$token['expires_in']);
+        $item->expiresAfter($expiration);
+        $item->set($token);
+        $pool->save($item);
+    }
+
+    // set token
+    $bot->token->set($token);
 ```
