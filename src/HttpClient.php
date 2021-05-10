@@ -15,7 +15,7 @@ use TeamsBot\Exception\TeamsBotException;
  */
 class HttpClient
 {
-    private static ?Client $client;
+    private static Client $client;
 
     /**
      * @return Client

@@ -17,9 +17,9 @@ class Token
 {
     private const URL = 'https://login.microsoftonline.com/botframework.com/oauth2/v2.0/token';
     /**
-     * @var array|null
+     * @var array
      */
-    private ?array $token = null;
+    private array $token;
     /**
      * @var string
      */
@@ -87,7 +87,7 @@ class Token
     public function get(): array
     {
         if (
-            is_null($this->token) ||
+            empty($this->token) ||
             (!empty($this->token['expires_in']) && (int)$this->token['expires_in'] < time())
         ) {
             $time = time();
